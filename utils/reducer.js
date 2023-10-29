@@ -13,7 +13,11 @@ export const reducer = (state, action) => {
       return;
 
     case REMOVE_ITEM:
-      return;
+      console.log(action);
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.payload.id),
+      };
 
     case INCREASE_AMOUNT:
       return;

@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../utils/context';
 import CartItem from './CartItem';
 const CartContainer = () => {
   const { cart } = useGlobalContext();
+  const [sum, setSum] = useState(0);
+
+  useEffect(() => {
+    let newSum = 0;
+    cart.forEach((item) => {
+      const { price, amount } = item;
+      newSum += parseFloat(price * amount);
+    });
+
+    setSum(newSum);
+  }, [cart]);
 
   if (cart.length === 0) {
     return (
@@ -31,7 +43,7 @@ const CartContainer = () => {
         <hr />
         <div>
           <h5 className="cart-total">
-            total <span>$10</span>
+            total <span>${sum.toString()}</span>
           </h5>
         </div>
         <button
