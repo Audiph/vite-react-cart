@@ -5,7 +5,7 @@ import { DISPLAY_ITEMS, LOADING } from './actions';
 
 const defaultState = {
   loading: false,
-  cart: null,
+  cart: [],
 };
 
 const AppContext = createContext();
@@ -23,13 +23,7 @@ export const AppProvider = ({ children }) => {
         const data = await response.json();
         dispatch({
           type: DISPLAY_ITEMS,
-          payload: {
-            cart: new Map(
-              data.map((item) => {
-                return [item.id, item];
-              })
-            ),
-          },
+          payload: data,
         });
         dispatch({ type: LOADING, payload: { loading: false } });
       } catch (error) {
