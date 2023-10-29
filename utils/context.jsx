@@ -23,7 +23,7 @@ export const AppProvider = ({ children }) => {
         const data = await response.json();
         dispatch({
           type: DISPLAY_ITEMS,
-          payload: data,
+          payload: { cart: data },
         });
         dispatch({ type: LOADING, payload: { loading: false } });
       } catch (error) {
