@@ -37,12 +37,9 @@ export const reducer = (state, action) => {
       };
 
     case LOADING:
-      console.log(action);
-      // return { ...state, loading: action.payload.loading };
       return state;
 
     case DISPLAY_ITEMS:
-      console.log(action);
       return { ...state, cart: action.payload.cart };
 
     case UPDATE_SUM:
@@ -52,7 +49,7 @@ export const reducer = (state, action) => {
         newSum += parseFloat(price * amount);
       });
       return { ...state, sum: Math.round(newSum * 100) / 100 };
-    //
+
     default:
       return state;
   }
