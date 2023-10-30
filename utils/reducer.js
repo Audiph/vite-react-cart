@@ -15,7 +15,6 @@ export const reducer = (state, action) => {
       return { ...state, cart: [] };
 
     case REMOVE_ITEM:
-      console.log(action);
       return {
         ...state,
         cart: state.cart.filter((item) => item.id !== action.payload.id),
