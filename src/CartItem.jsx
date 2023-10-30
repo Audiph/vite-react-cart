@@ -3,9 +3,6 @@ import { useGlobalContext } from '../utils/context';
 import { INCREASE_AMOUNT, REMOVE_ITEM } from '../utils/actions';
 const CartItem = ({ id, img, title, price, amount }) => {
   const { dispatch } = useGlobalContext();
-  const increaseAmount = () => {
-    dispatch({ type: INCREASE_AMOUNT, payload: { id } });
-  };
   return (
     <article className="cart-item">
       <img src={img} alt={title} />
@@ -22,7 +19,10 @@ const CartItem = ({ id, img, title, price, amount }) => {
       </div>
       <div>
         {/* increase amount */}
-        <button className="amount-btn" onClick={() => increaseAmount()}>
+        <button
+          className="amount-btn"
+          onClick={() => dispatch({ type: INCREASE_AMOUNT, payload: { id } })}
+        >
           <FaChevronUp className="amount-icon" />
         </button>
         {/* amount */}
