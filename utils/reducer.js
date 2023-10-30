@@ -37,7 +37,7 @@ export const reducer = (state, action) => {
       };
 
     case LOADING:
-      return state;
+      return { ...state, loading: action.payload.loading };
 
     case DISPLAY_ITEMS:
       return { ...state, cart: action.payload.cart };
