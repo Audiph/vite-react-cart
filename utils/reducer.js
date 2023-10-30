@@ -5,12 +5,14 @@ import {
   INCREASE_AMOUNT,
   LOADING,
   REMOVE_ITEM,
+  UPDATE_SUM,
 } from './actions';
+import { findItem } from './util';
 
 export const reducer = (state, action) => {
   switch (action.type) {
     case CLEAR_CART:
-      return;
+      return state;
 
     case REMOVE_ITEM:
       console.log(action);
@@ -20,16 +22,33 @@ export const reducer = (state, action) => {
       };
 
     case INCREASE_AMOUNT:
-      return;
+      const result = findItem(state.cart, action.payload.id);
+      return {
+        ...state,
+        cart: state.cart.map((item) => {
+          if (item.id === result.id) {
+            item.amount = item.amount + 1;
+          }
+          return item;
+        }),
+      };
 
     case DECREASE_AMOUNT:
-      return;
+      return state;
 
     case LOADING:
       return { ...state, loading: action.payload.loading };
 
     case DISPLAY_ITEMS:
       return { ...state, cart: action.payload.cart };
+
+    case UPDATE_SUM:
+      let newSum = 0;
+      state.cart.forEach((item) => {
+        const { price, amount } = item;
+        newSum += parseFloat(price * amount);
+      });
+      return { ...state, sum: Math.round(newSum * 100) / 100 };
 
     default:
       return state;

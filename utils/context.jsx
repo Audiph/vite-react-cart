@@ -1,11 +1,12 @@
 import { useContext, useEffect, useReducer } from 'react';
 import { createContext } from 'react';
 import { reducer } from './reducer';
-import { DISPLAY_ITEMS, LOADING } from './actions';
+import { DISPLAY_ITEMS, LOADING, UPDATE_SUM } from './actions';
 
 const defaultState = {
   loading: false,
   cart: [],
+  sum: 0,
 };
 
 const AppContext = createContext();

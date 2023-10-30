@@ -1,18 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useGlobalContext } from '../utils/context';
 import CartItem from './CartItem';
+import { UPDATE_SUM } from '../utils/actions';
 const CartContainer = () => {
-  const { cart } = useGlobalContext();
-  const [sum, setSum] = useState(0);
+  const { cart, sum, dispatch } = useGlobalContext();
 
   useEffect(() => {
-    let newSum = 0;
-    cart.forEach((item) => {
-      const { price, amount } = item;
-      newSum += parseFloat(price * amount);
-    });
-
-    setSum(newSum);
+    dispatch({ type: UPDATE_SUM });
   }, [cart]);
 
   if (cart.length === 0) {
