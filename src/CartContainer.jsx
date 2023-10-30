@@ -29,9 +29,6 @@ const CartContainer = () => {
       </header>
       {/* cart items */}
       <div>
-        {/* {carts.map((cartItem) => {
-          return <CartItem key={cartItem.id} {...cartItem} />;
-        })} */}
         {cart?.forEach((value) => {
           cartItems2.push(value);
         })}
