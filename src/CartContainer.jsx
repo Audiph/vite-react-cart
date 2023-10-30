@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useGlobalContext } from '../utils/context';
 import CartItem from './CartItem';
-import { UPDATE_SUM } from '../utils/actions';
+import { CLEAR_CART, UPDATE_SUM } from '../utils/actions';
 const CartContainer = () => {
   const { cart, sum, dispatch } = useGlobalContext();
 
@@ -42,7 +42,7 @@ const CartContainer = () => {
         </div>
         <button
           className="btn btn-hipster"
-          onClick={() => console.log('clear cart')}
+          onClick={() => dispatch({ type: CLEAR_CART })}
         >
           clear cart
         </button>

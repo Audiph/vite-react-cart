@@ -12,7 +12,7 @@ import { findItem } from './util';
 export const reducer = (state, action) => {
   switch (action.type) {
     case CLEAR_CART:
-      return state;
+      return { ...state, cart: [] };
 
     case REMOVE_ITEM:
       console.log(action);
