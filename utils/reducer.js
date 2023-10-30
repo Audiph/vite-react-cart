@@ -22,19 +22,24 @@ export const reducer = (state, action) => {
       };
 
     case INCREASE_AMOUNT:
-      const result = findItem(state.cart, action.payload.id);
+      const itemToIncrease = findItem(state.cart, action.payload.id);
       return {
         ...state,
         cart: state.cart.map((item) => {
-          if (item.id === result.id) {
-            item.amount = item.amount + 1;
-          }
+          item.id === itemToIncrease.id && item.amount++;
           return item;
         }),
       };
 
     case DECREASE_AMOUNT:
-      return state;
+      const itemToDecrease = findItem(state.cart, action.payload.id);
+      return {
+        ...state,
+        cart: state.cart.map((item) => {
+          item.id === itemToDecrease.id && item.amount--;
+          return item;
+        }),
+      };
 
     case LOADING:
       return { ...state, loading: action.payload.loading };
