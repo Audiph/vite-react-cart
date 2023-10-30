@@ -1,16 +1,12 @@
-import { useEffect } from 'react';
-import { useGlobalContext } from '../utils/context';
+import { useGlobalContext } from './utils/context';
 import CartItem from './CartItem';
-import { CLEAR_CART, UPDATE_SUM } from '../utils/actions';
+import { handleSum } from './utils/utils';
 const CartContainer = () => {
-  let cartItems2 = [];
-  const { cart, sum, dispatch } = useGlobalContext();
+  const { cart, clearCart } = useGlobalContext();
+  const cartItems = Array.from(cart.entries());
+  const total = handleSum(cart);
 
-  useEffect(() => {
-    return () => dispatch({ type: UPDATE_SUM });
-  }, [cart]);
-
-  if (cart?.size === 0) {
+  if (cartItems.length === 0) {
     return (
       <section className="cart">
         {/* cart header */}
@@ -29,11 +25,9 @@ const CartContainer = () => {
       </header>
       {/* cart items */}
       <div>
-        {cart?.forEach((value) => {
-          cartItems2.push(value);
-        })}
-        {cartItems2.map((item) => {
-          return <CartItem key={item.id} {...item} />;
+        {cartItems.map((cartItem) => {
+          const [id, item] = cartItem;
+          return <CartItem key={id} {...item} />;
         })}
       </div>
       {/* cart footer */}
@@ -41,13 +35,10 @@ const CartContainer = () => {
         <hr />
         <div>
           <h5 className="cart-total">
-            total <span>${sum.toString()}</span>
+            total <span>${total.toString()}</span>
           </h5>
         </div>
-        <button
-          className="btn btn-hipster"
-          onClick={() => dispatch({ type: CLEAR_CART })}
-        >
+        <button className="btn btn-hipster" onClick={clearCart}>
           clear cart
         </button>
       </footer>

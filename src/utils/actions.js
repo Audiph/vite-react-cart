@@ -4,4 +4,3 @@ export const INCREASE_AMOUNT = 'INCREASE_AMOUNT';
 export const DECREASE_AMOUNT = 'DECREASE_AMOUNT';
 export const LOADING = 'LOADING';
 export const DISPLAY_ITEMS = 'DISPLAY_ITEMS';
-export const UPDATE_SUM = 'UPDATE_SUM';

@@ -5,35 +5,35 @@ import {
   INCREASE_AMOUNT,
   LOADING,
   REMOVE_ITEM,
-  UPDATE_SUM,
 } from './actions';
 
 export const reducer = (state, action) => {
+  const newCart = new Map(state.cart);
+  const item = newCart.get(action.payload?.id);
   switch (action.type) {
     case CLEAR_CART:
-      state.cart?.clear();
-      return { ...state };
+      return { ...state, cart: new Map() };
 
     case REMOVE_ITEM:
-      state.cart?.delete(action.payload.id);
-      return { ...state };
+      newCart.delete(action.payload.id);
+      return { ...state, cart: newCart };
 
     case INCREASE_AMOUNT:
-      const itemToIncrease = state.cart?.get(action.payload.id);
-
-      itemToIncrease.amount++;
+      newCart.set(action.payload.id, { ...item, amount: item.amount + 1 });
 
       return {
         ...state,
+        cart: newCart,
       };
 
     case DECREASE_AMOUNT:
-      const itemToDecrease = state.cart?.get(action.payload.id);
+      newCart.set(action.payload.id, { ...item, amount: item.amount - 1 });
 
-      itemToDecrease.amount--;
+      item.amount === 1 && newCart.delete(action.payload.id);
 
       return {
         ...state,
+        cart: newCart,
       };
 
     case LOADING:
@@ -41,14 +41,6 @@ export const reducer = (state, action) => {
 
     case DISPLAY_ITEMS:
       return { ...state, cart: action.payload.cart };
-
-    case UPDATE_SUM:
-      let newSum = 0;
-      state.cart?.forEach((item) => {
-        const { price, amount } = item;
-        newSum += parseFloat(price * amount);
-      });
-      return { ...state, sum: Math.round(newSum * 100) / 100 };
 
     default:
       return state;
