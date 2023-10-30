@@ -2,6 +2,8 @@
 import Navbar from './Navbar';
 import CartContainer from './CartContainer';
 import { useGlobalContext } from '../utils/context';
+import { UPDATE_SUM } from '../utils/actions';
+import { useEffect } from 'react';
 
 function App() {
   const { loading } = useGlobalContext();

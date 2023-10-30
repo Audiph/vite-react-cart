@@ -5,7 +5,7 @@ import { DISPLAY_ITEMS, LOADING } from './actions';
 
 const defaultState = {
   loading: false,
-  cart: [],
+  cart: null,
   sum: 0,
 };
 
@@ -22,9 +22,10 @@ export const AppProvider = ({ children }) => {
           `https://www.course-api.com/react-useReducer-cart-project`
         );
         const data = await response.json();
+        const carts = new Map(data.map((item) => [item.id, item]));
         dispatch({
           type: DISPLAY_ITEMS,
-          payload: { cart: data },
+          payload: { cart: carts },
         });
         dispatch({ type: LOADING, payload: { loading: false } });
       } catch (error) {

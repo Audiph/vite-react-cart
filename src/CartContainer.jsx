@@ -3,13 +3,14 @@ import { useGlobalContext } from '../utils/context';
 import CartItem from './CartItem';
 import { CLEAR_CART, UPDATE_SUM } from '../utils/actions';
 const CartContainer = () => {
+  let cartItems2 = [];
   const { cart, sum, dispatch } = useGlobalContext();
 
   useEffect(() => {
-    dispatch({ type: UPDATE_SUM });
+    return () => dispatch({ type: UPDATE_SUM });
   }, [cart]);
 
-  if (cart.length === 0) {
+  if (cart?.size === 0) {
     return (
       <section className="cart">
         {/* cart header */}
@@ -28,8 +29,14 @@ const CartContainer = () => {
       </header>
       {/* cart items */}
       <div>
-        {cart.map((cartItem) => {
+        {/* {carts.map((cartItem) => {
           return <CartItem key={cartItem.id} {...cartItem} />;
+        })} */}
+        {cart?.forEach((value) => {
+          cartItems2.push(value);
+        })}
+        {cartItems2.map((item) => {
+          return <CartItem key={item.id} {...item} />;
         })}
       </div>
       {/* cart footer */}

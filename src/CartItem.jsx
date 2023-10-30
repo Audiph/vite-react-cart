@@ -4,9 +4,15 @@ import {
   DECREASE_AMOUNT,
   INCREASE_AMOUNT,
   REMOVE_ITEM,
+  UPDATE_SUM,
 } from '../utils/actions';
+import { useEffect } from 'react';
 const CartItem = ({ id, img, title, price, amount }) => {
   const { dispatch } = useGlobalContext();
+
+  useEffect(() => {
+    return () => dispatch({ type: UPDATE_SUM });
+  }, [amount]);
 
   const handleDecreaseAmount = () => {
     if (amount < 2) {
